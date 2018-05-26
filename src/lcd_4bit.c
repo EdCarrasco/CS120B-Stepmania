@@ -78,16 +78,6 @@ void LCD_CreateCustom(unsigned char index, const unsigned char Data[8]) {
 	}
 }
 
-void LCD_DisplayString( unsigned char column, const unsigned char* string) {
-	LCD_ClearScreen();
-	unsigned char c = column;
-	while(*string)
-	{
-		LCD_Cursor(c++);
-		LCD_WriteData(*string++);
-	}
-}
-
 void LCD_Cursor(unsigned char column) {
 	if ( column < 17 )
 	{                    
@@ -101,4 +91,14 @@ void LCD_Cursor(unsigned char column) {
 		// 16x1 LCD: column - 1
 		// 16x2 LCD: column - 9
 	}
+}
+
+void LCD_DisplayString( unsigned char column, const unsigned char* string) {
+    LCD_ClearScreen();
+    unsigned char c = column;
+    while(*string)
+    {
+        LCD_Cursor(c++);
+        LCD_WriteData(*string++);
+    }
 }
