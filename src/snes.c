@@ -1,3 +1,5 @@
+#define F_CPU 8000000UL // Clock Definition 8MHz
+
 #include <avr/io.h>
 #include <util/delay.h>
 #include "snes.h"

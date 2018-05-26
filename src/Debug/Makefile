@@ -37,7 +37,14 @@ SUBDIRS :=
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS +=  \
-../stepmania.c
+../controllerSM.c \
+../globals.c \
+../lcdSM.c \
+../lcd_4bit.c \
+../lcd_customs.c \
+../snes.c \
+../stepmania.c \
+../timer.c
 
 
 PREPROCESSING_SRCS += 
@@ -47,16 +54,44 @@ ASM_SRCS +=
 
 
 OBJS +=  \
-stepmania.o
+controllerSM.o \
+globals.o \
+lcdSM.o \
+lcd_4bit.o \
+lcd_customs.o \
+snes.o \
+stepmania.o \
+timer.o
 
 OBJS_AS_ARGS +=  \
-stepmania.o
+controllerSM.o \
+globals.o \
+lcdSM.o \
+lcd_4bit.o \
+lcd_customs.o \
+snes.o \
+stepmania.o \
+timer.o
 
 C_DEPS +=  \
-stepmania.d
+controllerSM.d \
+globals.d \
+lcdSM.d \
+lcd_4bit.d \
+lcd_customs.d \
+snes.d \
+stepmania.d \
+timer.d
 
 C_DEPS_AS_ARGS +=  \
-stepmania.d
+controllerSM.d \
+globals.d \
+lcdSM.d \
+lcd_4bit.d \
+lcd_customs.d \
+snes.d \
+stepmania.d \
+timer.d
 
 OUTPUT_FILE_PATH +=stepmania.elf
 
@@ -72,6 +107,20 @@ LINKER_SCRIPT_DEP+=
 
 
 # AVR32/GNU C Compiler
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -1,3 +1,5 @@
+#define F_CPU 8000000UL // Clock Definition 8MHz
+
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <stdio.h>
