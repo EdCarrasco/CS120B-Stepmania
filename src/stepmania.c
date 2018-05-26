@@ -7,6 +7,7 @@
 
 
 #include <avr/io.h>
+#include "lcd_4bit.h"
 
 int main(void)
 {
