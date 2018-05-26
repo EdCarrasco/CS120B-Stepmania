@@ -1,5 +1,3 @@
-#define F_CPU 8000000UL
-
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <stdio.h>
@@ -96,7 +94,8 @@ void LCD_Cursor(unsigned char column) {
 		// 16x1 LCD: column < 9
 		// 16x2 LCD: column < 17
 		LCD_WriteCommand(0x80 + column - 1);
-	} else
+	}
+    else
 	{
 		LCD_WriteCommand(0xB8 + column - 9);	
 		// 16x1 LCD: column - 1
