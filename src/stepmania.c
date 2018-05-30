@@ -5,11 +5,8 @@
  *  Author: JonathanOaks
  */ 
 
-#define F_CPU 8000000UL // Clock Definition 8MHz
-
 #include <avr/io.h>
 #include <avr/sleep.h>
-#include <util/delay.h>
 #include "lcd_4bit.h"
 #include "timer.h"
 
@@ -17,6 +14,7 @@
 
 #include "controllerSM.h"
 #include "lcdSM.h"
+#include "music_playerSM.h"
 
 typedef struct _task {
     /*Tasks should have members that include: state, period,
@@ -27,12 +25,8 @@ typedef struct _task {
     int (*TickFunction)(int); //Task tick function
 } Task;
 
-static Task controllerTask, lcdTask;
-static Task *tasks[] = { &controllerTask, &lcdTask };
-
-static unsigned long program_period;
-static unsigned long period_Controller = 25;
-static unsigned long period_LCD = 100;
+static Task controllerTask, lcdTask, musicTask;
+static Task *tasks[] = { &controllerTask, &lcdTask, &musicTask };
 
 void TimerISR()
 {
@@ -61,31 +55,48 @@ unsigned long int findGCD(unsigned long a, unsigned long b)
 
 void init_Tasks()
 {
-    program_period = findGCD(period_Controller, period_Controller);
-    program_period = findGCD(period_Controller, period_LCD);
+    unsigned long controller_period = 50;
+    unsigned long LCD_period = 25;
+    unsigned long music_period = 10;
+    
+    set_ControllerPeriod(controller_period);
+    set_LCDPeriod(LCD_period);
+    set_MusicPeriod(music_period);
+    
+    unsigned long gcd = findGCD(controller_period, LCD_period);
+    gcd = findGCD(gcd, music_period);
+	
+    set_ProgramPeriod(gcd);
     
     unsigned char i = 0;
     tasks[i]->state = 0;
-    tasks[i]->period = period_Controller/program_period;
+    tasks[i]->period = controller_period/gcd;
     tasks[i]->elapsed_time = tasks[i]->period;
     tasks[i]->TickFunction = controller_GetTick();
     i++;
     tasks[i]->state = 0;
-    tasks[i]->period = period_LCD/program_period;
+    tasks[i]->period = LCD_period/gcd;
     tasks[i]->elapsed_time = tasks[i]->period;
     tasks[i]->TickFunction = lcd_GetTick();
+    i++;
+    tasks[i]->state = 0;
+    tasks[i]->period = music_period/gcd;
+    tasks[i]->elapsed_time = tasks[i]->period;
+    tasks[i]->TickFunction = music_GetTick();
     
 }
 
 int main(void)
 {
     DDRA = 0xFE; PORTA = 0x01;
+	DDRB = 0xFF; PORTB = 0x00;
     DDRC = 0xFF; PORTC = 0x00;
+    DDRD = 0xFF; PORTD = 0x00;
     
     LCD_init();
     init_Tasks();
     
-    TimerSet(program_period);
+    TimerSet(get_ProgramPeriod());
     TimerOn();
     
     set_sleep_mode(3);

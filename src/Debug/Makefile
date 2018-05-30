@@ -42,8 +42,11 @@ C_SRCS +=  \
 ../lcdSM.c \
 ../lcd_4bit.c \
 ../lcd_customs.c \
+../music_playerSM.c \
+../pwm.c \
 ../snes.c \
 ../stepmania.c \
+../tabula.c \
 ../timer.c
 
 
@@ -59,8 +62,11 @@ globals.o \
 lcdSM.o \
 lcd_4bit.o \
 lcd_customs.o \
+music_playerSM.o \
+pwm.o \
 snes.o \
 stepmania.o \
+tabula.o \
 timer.o
 
 OBJS_AS_ARGS +=  \
@@ -69,8 +75,11 @@ globals.o \
 lcdSM.o \
 lcd_4bit.o \
 lcd_customs.o \
+music_playerSM.o \
+pwm.o \
 snes.o \
 stepmania.o \
+tabula.o \
 timer.o
 
 C_DEPS +=  \
@@ -79,8 +88,11 @@ globals.d \
 lcdSM.d \
 lcd_4bit.d \
 lcd_customs.d \
+music_playerSM.d \
+pwm.d \
 snes.d \
 stepmania.d \
+tabula.d \
 timer.d
 
 C_DEPS_AS_ARGS +=  \
@@ -89,8 +101,11 @@ globals.d \
 lcdSM.d \
 lcd_4bit.d \
 lcd_customs.d \
+music_playerSM.d \
+pwm.d \
 snes.d \
 stepmania.d \
+tabula.d \
 timer.d
 
 OUTPUT_FILE_PATH +=stepmania.elf
@@ -107,6 +122,12 @@ LINKER_SCRIPT_DEP+=
 
 
 # AVR32/GNU C Compiler
+
+
+
+
+
+
 
 
 

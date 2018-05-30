@@ -12,9 +12,15 @@ lcd_4bit.c
 
 lcd_customs.c
 
+music_playerSM.c
+
+pwm.c
+
 snes.c
 
 stepmania.c
+
+tabula.c
 
 timer.c
 
