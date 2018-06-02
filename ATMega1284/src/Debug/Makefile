@@ -38,6 +38,8 @@ SUBDIRS :=
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS +=  \
 ../controllerSM.c \
+../eeprom.c \
+../gameSM.c \
 ../globals.c \
 ../lcdSM.c \
 ../lcd_4bit.c \
@@ -47,7 +49,8 @@ C_SRCS +=  \
 ../snes.c \
 ../stepmania.c \
 ../tabula.c \
-../timer.c
+../timer.c \
+../usart.c
 
 
 PREPROCESSING_SRCS += 
@@ -58,6 +61,8 @@ ASM_SRCS +=
 
 OBJS +=  \
 controllerSM.o \
+eeprom.o \
+gameSM.o \
 globals.o \
 lcdSM.o \
 lcd_4bit.o \
@@ -67,10 +72,13 @@ pwm.o \
 snes.o \
 stepmania.o \
 tabula.o \
-timer.o
+timer.o \
+usart.o
 
 OBJS_AS_ARGS +=  \
 controllerSM.o \
+eeprom.o \
+gameSM.o \
 globals.o \
 lcdSM.o \
 lcd_4bit.o \
@@ -80,10 +88,13 @@ pwm.o \
 snes.o \
 stepmania.o \
 tabula.o \
-timer.o
+timer.o \
+usart.o
 
 C_DEPS +=  \
 controllerSM.d \
+eeprom.d \
+gameSM.d \
 globals.d \
 lcdSM.d \
 lcd_4bit.d \
@@ -93,10 +104,13 @@ pwm.d \
 snes.d \
 stepmania.d \
 tabula.d \
-timer.d
+timer.d \
+usart.d
 
 C_DEPS_AS_ARGS +=  \
 controllerSM.d \
+eeprom.d \
+gameSM.d \
 globals.d \
 lcdSM.d \
 lcd_4bit.d \
@@ -106,7 +120,8 @@ pwm.d \
 snes.d \
 stepmania.d \
 tabula.d \
-timer.d
+timer.d \
+usart.d
 
 OUTPUT_FILE_PATH +=stepmania.elf
 
@@ -122,6 +137,12 @@ LINKER_SCRIPT_DEP+=
 
 
 # AVR32/GNU C Compiler
+
+
+
+
+
+
 
 
 

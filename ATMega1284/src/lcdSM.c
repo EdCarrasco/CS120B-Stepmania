@@ -52,6 +52,8 @@ int Tick_LCD(int state)
                 {
                     LCD_WriteData(' ');
                 }
+				LCD_Cursor(32);
+				LCD_WriteData('0'+get_Max_Combo());
             }
             break;
     }

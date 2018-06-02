@@ -59,18 +59,18 @@ int Tick_Music(int state)
             {
                 for(unsigned char i = 0; i < music_tracks; i++)
                 {
-                    if(elapsed_time[i] >= note_duration[i] && note_index[i] < note_size[i])
+                    if(elapsed_time[i] >= note_duration[i] && note_index[i] <= note_size[i])
                     {
                         elapsed_time[i] = 0;
-                        note_index[i]++;
                         note_duration[i] = get_Tabula_Duration(i,note_index[i]);
                         set_PWM(i,get_Tabula_Tone(i,note_index[i]));
+                        note_index[i]++;
                     }
                 }
                 state = music_Update;
                 for(unsigned char i = 0; i < music_tracks; i++)
                 {
-                    if(note_index[i] >= note_size[i])
+                    if(note_index[i] > note_size[i])
                     {
                         state = music_Off;
                     }

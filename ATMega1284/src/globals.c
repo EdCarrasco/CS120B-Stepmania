@@ -1,4 +1,5 @@
 #include "globals.h"
+#include "eeprom.h"
 
 unsigned short controller_data;
 // SNES Controller Data Format: 0-15
@@ -21,3 +22,30 @@ unsigned long get_LCDPeriod() { return LCD_period; }
 unsigned long music_period;
 void set_MusicPeriod(unsigned long period) { music_period = period; }
 unsigned long get_MusicPeriod() { return music_period; }
+	
+unsigned char max_combo;
+void set_Max_Combo_Prom()
+{
+	EEPROM_Write(0,max_combo);
+}
+unsigned char get_Max_Combo_Prom()
+{
+	return EEPROM_Read(0);
+}
+void set_Max_Combo(unsigned char score)
+{
+	if(score > max_combo)
+	{
+		max_combo = score;
+	}
+}
+unsigned char get_Max_Combo()
+{
+	return max_combo;
+}
+
+void reset_Max_Combo()
+{
+	max_combo = 0;
+	set_Max_Combo_Prom(0,0);
+}

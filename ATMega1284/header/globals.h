@@ -17,3 +17,10 @@ unsigned long get_LCDPeriod();
 extern unsigned long music_period;
 void set_MusicPeriod(unsigned long period);
 unsigned long get_MusicPeriod();
+
+extern unsigned char max_combo;
+void set_Max_Combo_Prom();
+unsigned char get_Max_Combo_Prom();
+void set_Max_Combo(unsigned char score);
+unsigned char get_Max_Combo();
+void reset_Max_Combo();

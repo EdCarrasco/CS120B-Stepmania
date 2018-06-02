@@ -9,6 +9,7 @@
 #include <avr/sleep.h>
 #include "lcd_4bit.h"
 #include "timer.h"
+#include "usart.h"
 
 #include "globals.h"
 
@@ -55,9 +56,9 @@ unsigned long int findGCD(unsigned long a, unsigned long b)
 
 void init_Tasks()
 {
-    unsigned long controller_period = 50;
+    unsigned long controller_period = 5;
     unsigned long LCD_period = 25;
-    unsigned long music_period = 10;
+    unsigned long music_period = 20;
     
     set_ControllerPeriod(controller_period);
     set_LCDPeriod(LCD_period);
@@ -93,11 +94,14 @@ int main(void)
     DDRC = 0xFF; PORTC = 0x00;
     DDRD = 0xFF; PORTD = 0x00;
     
+    initUSART();
     LCD_init();
     init_Tasks();
     
     TimerSet(get_ProgramPeriod());
     TimerOn();
+	
+	set_Max_Combo(get_Max_Combo_Prom());
     
     set_sleep_mode(3);
     while(1) { sleep_enable(); }
