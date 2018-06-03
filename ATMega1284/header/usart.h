@@ -43,7 +43,7 @@ void USART_Flush();
 //Functionality - Sends an 8-bit char value
 //Parameter: Takes a single unsigned char value
 //Returns: None
-void USART_Send(unsigned char sendMe);
+void USART_Send(unsigned char key, unsigned char sendMe);
 
 ////////////////////////////////////////////////////////////////////////////////
 // **** WARNING: THIS FUNCTION BLOCKS MULTI-TASKING; USE WITH CAUTION!!! ****

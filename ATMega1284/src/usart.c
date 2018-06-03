@@ -1,9 +1,11 @@
 #include "usart.h"
 
+#define F_CPU 8000000UL // Assume uC operates at 8MHz
+
 #include <avr/io.h>
+#include <util/delay.h>
 
 // USART Setup Values
-#define F_CPU 8000000UL // Assume uC operates at 8MHz
 #define BAUD_RATE 9600
 #define BAUD_PRESCALE (((F_CPU / (BAUD_RATE * 16UL))) - 1)
 
@@ -87,8 +89,10 @@ void USART_Flush()
 //Functionality - Sends an 8-bit char value
 //Parameter: Takes a single unsigned char value
 //Returns: None
-void USART_Send(unsigned char sendMe)
+void USART_Send(unsigned char key, unsigned char sendMe)
 {
+    while( !(UCSRA & (1 << UDRE)) );
+    UDR = key;
     while( !(UCSRA & (1 << UDRE)) );
     UDR = sendMe;
 }

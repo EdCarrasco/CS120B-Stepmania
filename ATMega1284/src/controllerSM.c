@@ -36,8 +36,8 @@ int Tick_Controller(int state)
         case controller_Update:
 			data = snes_GetData();
             
-            //YBXALDUR
-            USART_Send( ((char)( 
+            //0bRUDLAXBY
+            USART_Send(0x01,  ((char)( 
                 (data & 0b000000000000010)>>1 | // Y
                 (data & 0b000000000000001)<<1 | // B
                 (data & 0b000001000000000)>>7 | // X
@@ -50,7 +50,7 @@ int Tick_Controller(int state)
             
             set_ControllerData(data);
 			
-            
+            /*
 			if( (data & 0x0001) )
 			{
 				combo++;
@@ -66,6 +66,7 @@ int Tick_Controller(int state)
 				max_combo = 0;
 				reset_Max_Combo();
 			}
+            */
 			
             break;
     }
