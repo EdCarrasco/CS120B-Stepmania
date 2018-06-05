@@ -2,6 +2,7 @@
 #define __matrix_h__
 
 void matrix_init(void);
+void matrix_DrawPixel(unsigned char x, unsigned char y, unsigned char colors[3]);
 void matrix_DrawPixel(unsigned char x, unsigned char y, unsigned char r, unsigned char g, unsigned char b);
 
 #endif
