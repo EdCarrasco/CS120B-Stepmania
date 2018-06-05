@@ -18,6 +18,26 @@ extern unsigned long music_period;
 void set_MusicPeriod(unsigned long period);
 unsigned long get_MusicPeriod();
 
+extern unsigned long usart_period;
+void set_USARTPeriod(unsigned long period);
+unsigned long get_USARTPeriod();
+
+extern unsigned char play_enable;
+void set_PlayEnable(unsigned char enable);
+unsigned long get_PlayEnable();
+
+extern unsigned char* game_map;
+void set_GameMap(unsigned char *stepmap);
+unsigned char* get_GameMap();
+
+extern unsigned short game_map_size;
+void set_GameMapSize(unsigned short map_size);
+unsigned short get_GameMapSize();
+
+extern unsigned short tempo;
+void set_Tempo(unsigned char tempo);
+unsigned short get_Tempo();
+
 extern unsigned char max_combo;
 void set_Max_Combo_Prom();
 unsigned char get_Max_Combo_Prom();

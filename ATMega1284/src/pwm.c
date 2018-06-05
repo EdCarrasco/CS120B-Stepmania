@@ -1,3 +1,5 @@
+#include "pwm.h"
+
 #define CSn2 2
 #define CSn1 1
 #define CSn0 0

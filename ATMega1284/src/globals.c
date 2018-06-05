@@ -23,6 +23,26 @@ unsigned long music_period;
 void set_MusicPeriod(unsigned long period) { music_period = period; }
 unsigned long get_MusicPeriod() { return music_period; }
 	
+unsigned long usart_period;
+void set_USARTPeriod(unsigned long period) { usart_period = period; }
+unsigned long get_USARTPeriod() { return usart_period; }
+
+unsigned char play_enable;
+void set_PlayEnable(unsigned char enable) { play_enable = enable; }
+unsigned long get_PlayEnable() { return play_enable; }
+	
+unsigned char* game_map;
+void set_GameMap(unsigned char *stepmap) {game_map = stepmap; };
+unsigned char* get_GameMap() { return game_map; }
+
+unsigned short game_map_size;
+void set_GameMapSize(unsigned short map_size) { game_map_size = map_size; }
+unsigned short get_GameMapSize() { return game_map_size; }
+
+unsigned short tempo;
+void set_Tempo(unsigned char in_tempo) { tempo = in_tempo; }
+unsigned short get_Tempo() { return tempo; }
+
 unsigned char max_combo;
 void set_Max_Combo_Prom()
 {
