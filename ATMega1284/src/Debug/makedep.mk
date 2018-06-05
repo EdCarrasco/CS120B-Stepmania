@@ -6,8 +6,6 @@ controllerSM.c
 
 eeprom.c
 
-gameSM.c
-
 globals.c
 
 lcdSM.c
@@ -29,4 +27,6 @@ tabula.c
 timer.c
 
 usart.c
+
+usartSM.c
 

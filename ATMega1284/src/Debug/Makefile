@@ -39,7 +39,6 @@ SUBDIRS :=
 C_SRCS +=  \
 ../controllerSM.c \
 ../eeprom.c \
-../gameSM.c \
 ../globals.c \
 ../lcdSM.c \
 ../lcd_4bit.c \
@@ -50,7 +49,8 @@ C_SRCS +=  \
 ../stepmania.c \
 ../tabula.c \
 ../timer.c \
-../usart.c
+../usart.c \
+../usartSM.c
 
 
 PREPROCESSING_SRCS += 
@@ -62,7 +62,6 @@ ASM_SRCS +=
 OBJS +=  \
 controllerSM.o \
 eeprom.o \
-gameSM.o \
 globals.o \
 lcdSM.o \
 lcd_4bit.o \
@@ -73,12 +72,12 @@ snes.o \
 stepmania.o \
 tabula.o \
 timer.o \
-usart.o
+usart.o \
+usartSM.o
 
 OBJS_AS_ARGS +=  \
 controllerSM.o \
 eeprom.o \
-gameSM.o \
 globals.o \
 lcdSM.o \
 lcd_4bit.o \
@@ -89,12 +88,12 @@ snes.o \
 stepmania.o \
 tabula.o \
 timer.o \
-usart.o
+usart.o \
+usartSM.o
 
 C_DEPS +=  \
 controllerSM.d \
 eeprom.d \
-gameSM.d \
 globals.d \
 lcdSM.d \
 lcd_4bit.d \
@@ -105,12 +104,12 @@ snes.d \
 stepmania.d \
 tabula.d \
 timer.d \
-usart.d
+usart.d \
+usartSM.d
 
 C_DEPS_AS_ARGS +=  \
 controllerSM.d \
 eeprom.d \
-gameSM.d \
 globals.d \
 lcdSM.d \
 lcd_4bit.d \
@@ -121,7 +120,8 @@ snes.d \
 stepmania.d \
 tabula.d \
 timer.d \
-usart.d
+usart.d \
+usartSM.d
 
 OUTPUT_FILE_PATH +=stepmania.elf
 
@@ -168,8 +168,8 @@ LINKER_SCRIPT_DEP+=
 
 ./%.o: .././%.c
 	@echo Building file: $<
-	@echo Invoking: AVR/GNU C Compiler : 4.8.1
-	$(QUOTE)C:\Program Files (x86)\Atmel\Atmel Toolchain\AVR8 GCC\Native\3.4.1061\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"../../header"  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -mrelax -g2 -Wall -mmcu=atmega1284 -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	@echo Invoking: AVR/GNU C Compiler : 5.4.0
+	$(QUOTE)D:\Program Files\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"../../header" -I"D:\Program Files\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.150\include"  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -mrelax -g2 -Wall -mmcu=atmega1284 -B "D:\Program Files\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.150\gcc\dev\atmega1284" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
 	@echo Finished building: $<
 	
 
@@ -197,14 +197,14 @@ all: $(OUTPUT_FILE_PATH) $(ADDITIONAL_DEPENDENCIES)
 
 $(OUTPUT_FILE_PATH): $(OBJS) $(USER_OBJS) $(OUTPUT_FILE_DEP) $(LIB_DEP) $(LINKER_SCRIPT_DEP)
 	@echo Building target: $@
-	@echo Invoking: AVR/GNU Linker : 4.8.1
-	$(QUOTE)C:\Program Files (x86)\Atmel\Atmel Toolchain\AVR8 GCC\Native\3.4.1061\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE) -o$(OUTPUT_FILE_PATH_AS_ARGS) $(OBJS_AS_ARGS) $(USER_OBJS) $(LIBS) -Wl,-Map="stepmania.map" -Wl,--start-group -Wl,-lm  -Wl,--end-group -Wl,--gc-sections -mrelax -mmcu=atmega1284  
+	@echo Invoking: AVR/GNU Linker : 5.4.0
+	$(QUOTE)D:\Program Files\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE) -o$(OUTPUT_FILE_PATH_AS_ARGS) $(OBJS_AS_ARGS) $(USER_OBJS) $(LIBS) -Wl,-Map="stepmania.map" -Wl,--start-group -Wl,-lm  -Wl,--end-group -Wl,--gc-sections -mrelax -mmcu=atmega1284 -B "D:\Program Files\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.150\gcc\dev\atmega1284"  
 	@echo Finished building target: $@
-	"C:\Program Files (x86)\Atmel\Atmel Toolchain\AVR8 GCC\Native\3.4.1061\avr8-gnu-toolchain\bin\avr-objcopy.exe" -O ihex -R .eeprom -R .fuse -R .lock -R .signature -R .user_signatures  "stepmania.elf" "stepmania.hex"
-	"C:\Program Files (x86)\Atmel\Atmel Toolchain\AVR8 GCC\Native\3.4.1061\avr8-gnu-toolchain\bin\avr-objcopy.exe" -j .eeprom  --set-section-flags=.eeprom=alloc,load --change-section-lma .eeprom=0  --no-change-warnings -O ihex "stepmania.elf" "stepmania.eep" || exit 0
-	"C:\Program Files (x86)\Atmel\Atmel Toolchain\AVR8 GCC\Native\3.4.1061\avr8-gnu-toolchain\bin\avr-objdump.exe" -h -S "stepmania.elf" > "stepmania.lss"
-	"C:\Program Files (x86)\Atmel\Atmel Toolchain\AVR8 GCC\Native\3.4.1061\avr8-gnu-toolchain\bin\avr-objcopy.exe" -O srec -R .eeprom -R .fuse -R .lock -R .signature -R .user_signatures "stepmania.elf" "stepmania.srec"
-	"C:\Program Files (x86)\Atmel\Atmel Toolchain\AVR8 GCC\Native\3.4.1061\avr8-gnu-toolchain\bin\avr-size.exe" "stepmania.elf"
+	"D:\Program Files\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-objcopy.exe" -O ihex -R .eeprom -R .fuse -R .lock -R .signature -R .user_signatures  "stepmania.elf" "stepmania.hex"
+	"D:\Program Files\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-objcopy.exe" -j .eeprom  --set-section-flags=.eeprom=alloc,load --change-section-lma .eeprom=0  --no-change-warnings -O ihex "stepmania.elf" "stepmania.eep" || exit 0
+	"D:\Program Files\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-objdump.exe" -h -S "stepmania.elf" > "stepmania.lss"
+	"D:\Program Files\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-objcopy.exe" -O srec -R .eeprom -R .fuse -R .lock -R .signature -R .user_signatures "stepmania.elf" "stepmania.srec"
+	"D:\Program Files\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-size.exe" "stepmania.elf"
 	
 	
 

@@ -16,6 +16,7 @@
 #include "controllerSM.h"
 #include "lcdSM.h"
 #include "music_playerSM.h"
+#include "usartSM.h"
 
 typedef struct _task {
     /*Tasks should have members that include: state, period,
@@ -26,8 +27,8 @@ typedef struct _task {
     int (*TickFunction)(int); //Task tick function
 } Task;
 
-static Task controllerTask, lcdTask, musicTask;
-static Task *tasks[] = { &controllerTask, &lcdTask, &musicTask };
+static Task controllerTask, lcdTask, musicTask, usartTask;
+static Task *tasks[] = { &controllerTask, &lcdTask, &musicTask, &usartTask };
 
 void TimerISR()
 {
@@ -56,14 +57,16 @@ unsigned long int findGCD(unsigned long a, unsigned long b)
 
 void init_Tasks()
 {
-    unsigned long controller_period = 5;
-    unsigned long LCD_period = 25;
-    unsigned long music_period = 20;
+    unsigned long controller_period = 10;
+    unsigned long LCD_period = 200;
+    unsigned long music_period = 5;
+	unsigned long usart_period = findGCD(controller_period, music_period);
     
     set_ControllerPeriod(controller_period);
     set_LCDPeriod(LCD_period);
     set_MusicPeriod(music_period);
-    
+    set_USARTPeriod(usart_period);
+	
     unsigned long gcd = findGCD(controller_period, LCD_period);
     gcd = findGCD(gcd, music_period);
 	
@@ -84,6 +87,11 @@ void init_Tasks()
     tasks[i]->period = music_period/gcd;
     tasks[i]->elapsed_time = tasks[i]->period;
     tasks[i]->TickFunction = music_GetTick();
+	i++;
+	tasks[i]->state = 0;
+	tasks[i]->period = usart_period/gcd;
+	tasks[i]->elapsed_time = tasks[i]->period;
+	tasks[i]->TickFunction = usart_GetTick();
     
 }
 
@@ -103,7 +111,7 @@ int main(void)
 	
 	set_Max_Combo(get_Max_Combo_Prom());
     
-    set_sleep_mode(3);
+    set_sleep_mode(1);
     while(1) { sleep_enable(); }
     
     return 0;
