@@ -120,7 +120,7 @@ int main(void)
     TimerSet(get_ProgramPeriod());
     TimerOn();
     
-    set_sleep_mode(1);
+    set_sleep_mode(3);
     while(1) { sleep_enable(); }
     
     return 0;

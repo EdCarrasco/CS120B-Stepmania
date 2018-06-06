@@ -56,6 +56,7 @@ int Tick_USART(int state)
 				USART_Send(0x03,0x00);
 				state = usart_Off;
 			}
+			break;
 		case usart_Update:
 			if(get_PlayEnable())
 			{
@@ -64,6 +65,7 @@ int Tick_USART(int state)
 			else
 			{
 				USART_Send(0x03,0x00);
+				
 				if(max_combo > get_Max_Combo())
 				{
 					set_Max_Combo(max_combo);
@@ -86,6 +88,8 @@ int Tick_USART(int state)
     {
 		case usart_Start: break;
 		case usart_Off:
+			combo = 0;
+			max_combo = 0;
 			send_Controller();
 			break;
 		case usart_Update:

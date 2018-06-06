@@ -30,6 +30,22 @@ int Tick_Controller(int state)
 			data = snes_GetData();
             set_ControllerData(data);
 			
+			if( (get_ControllerData() & 0x0400) && (get_ControllerData() & 0x0800) ) // L and R
+			{
+
+				set_Max_Combo(0);
+				if(get_Max_Combo_Prom() > 0)
+				{
+					set_Max_Combo_Prom(0);
+				}
+
+				set_Max_Hits(0);
+				if(get_Max_Hits_Prom() > 0)
+				{
+					set_Max_Hits_Prom(0);
+				}
+			}
+			
 			if(data & 0x0004) // SELECT
 			{
 				set_PlayEnable(0);
@@ -37,21 +53,6 @@ int Tick_Controller(int state)
 			else if(data & 0x0008) // START
 			{
 				set_PlayEnable(1);
-			}
-			
-			if( (data & 0x0400) && (data & 0x0800) ) // L and R
-			{
-				if(get_Max_Combo_Prom() > 0)
-				{
-					set_Max_Combo(0);
-					set_Max_Combo_Prom(0);
-				}
-
-				if(get_Max_Hits_Prom() > 0)
-				{
-					set_Max_Hits(0);
-					set_Max_Hits_Prom(0);
-				}
 			}
             break;
     }
