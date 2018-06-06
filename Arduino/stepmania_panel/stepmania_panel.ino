@@ -42,8 +42,8 @@ unsigned long int findGCD(unsigned long a, unsigned long b)
 
 void init_Tasks()
 {
-    unsigned long input_period = 5;
-    unsigned long button_period = 5;
+    unsigned long input_period = 10;
+    unsigned long button_period = 10;
     unsigned long step_period = 1;
     unsigned long list_period = 5;
     

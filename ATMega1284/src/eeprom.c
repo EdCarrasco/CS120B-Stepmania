@@ -1,8 +1,11 @@
 #include <avr/io.h>
+#include <avr/eeprom.h>
 #include "eeprom.h"
 
-void EEPROM_Write(unsigned int address, unsigned char data)
+void EEPROM_Write(unsigned char address, unsigned char data)
 {
+	eeprom_write_byte(address,data);
+	/*
 	//Wait for previous write to finish
 	while(EECR & (1 << EEPE));
 	
@@ -15,10 +18,13 @@ void EEPROM_Write(unsigned int address, unsigned char data)
 	
 	// Begin Write
 	EECR |= (1 << EEPE);
+	*/
 }
 
-unsigned char EEPROM_Read(unsigned int address)
+unsigned char EEPROM_Read(unsigned char address)
 {
+	return eeprom_read_byte(address);
+	/*
 	//Wait for previous write to finish
 	while(EECR & (1 << EEPE));
 	
@@ -30,4 +36,5 @@ unsigned char EEPROM_Read(unsigned int address)
 	
 	//Return data register
 	return EEDR;
+	*/
 }

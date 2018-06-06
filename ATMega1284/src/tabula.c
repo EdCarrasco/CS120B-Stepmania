@@ -3,7 +3,7 @@
 
 // (60000 / (note prescaler * standard tempo ))
 //  mathmetically, this should be 60000/(4*150) = 100, but it plays too slowly
-#define tempo 85
+#define TEMPO 95
 
 static const unsigned char tabula_track1[][2] = {
     {0, 2}, {A5, 2}, {0, 2}, {A5, 2}, {0, 2}, {Gs5, 2}, {0, 2}, {Gs5, 2},
@@ -106,7 +106,7 @@ static const unsigned char tabula_track2[][2] = {
     {Cs3, 2}, {Fs3, 2}, {E3, 2}, {Fs3,2}, {Cs3, 2}, {Fs3, 2}, {E3, 2}, {Fs3, 2},
     {Cs3, 2}, {Fs3, 2}, {E3, 2}, {Fs3,2}, {Cs3, 2}, {Fs3, 2}, {E3, 2}, {Fs3, 2},
     {B2, 2}, {A3, 2}, {Gs3, 2}, {A3,2}, {E3, 2}, {B3, 2}, {A3, 2}, {B3, 2},
-    {Cs3, 2}, {Fs3, 2}, {E3, 2}, {Fs3, 2}, {Fs2, 4} // 29
+    {Cs3, 2}, {Fs3, 2}, {E3, 2}, {Fs3, 2}, {Fs2, 8} // 29
 };
 
 static const unsigned char tabula_track3[][2] = {
@@ -138,7 +138,7 @@ static const unsigned char tabula_track3[][2] = {
     {Fs2, 2}, {Cs3, 2}, {Fs2, 2}, {Cs3, 2}, {Fs2, 2}, {Cs3, 2}, {Fs2, 2}, {Cs3, 2},
     {D2, 2}, {A2, 2}, {D2, 2}, {A2, 2}, {D2, 2}, {A2, 2}, {D2, 2}, {A2, 2},
     {E2, 2}, {B2, 2}, {E2, 2}, {B2, 2}, {E2, 2}, {B2, 2}, {E2, 2}, {B2, 2},
-    {Fs2, 2}, {Gs2, 2}, {A2, 2}, {B2, 2}, {Cs3, 4}, // 29
+    {Fs2, 2}, {Gs2, 2}, {A2, 2}, {B2, 2}, {Cs3, 2}, // 29
     
     {Fs2, 16},
     {A2, 16},
@@ -521,7 +521,7 @@ static const unsigned char tabula_map[] =
     0b00000000,
     0b00000000,
     0b00000000,
-    0b00000011,
+    0b01000011, //Edited
     0b00000000,
     0b00000000,
     0b00000000,
@@ -593,7 +593,7 @@ static const unsigned char tabula_map[] =
     0b00000000,
     0b01000000,
     0b00000000,
-    0b00000001,
+    0b00000100,
     0b00000000,
     0b00000000,
     0b00000000,
@@ -827,7 +827,6 @@ static const unsigned char tabula_map[] =
     0b00000000,
     0b00000000,
     0b00000000,
-    0b00000000,
     0b00000100,
     0b00000000,
     0b00000000,
@@ -916,13 +915,13 @@ unsigned long get_Tabula_Duration(unsigned char track, unsigned char index)
     switch(track)
     {
         case 0:
-            return (unsigned long)tabula_track1[index][1] * tempo;
+            return (unsigned long)tabula_track1[index][1] * TEMPO;
             break;
         case 1:
-            return (unsigned long)tabula_track2[index][1] * tempo;
+            return (unsigned long)tabula_track2[index][1] * TEMPO;
             break;
         case 2:
-            return (unsigned long)tabula_track3[index][1] * tempo;
+            return (unsigned long)tabula_track3[index][1] * TEMPO;
             break;
         default:
             return 0;
@@ -955,4 +954,4 @@ const unsigned char* get_Tabula_Map() { return tabula_map; }
 
 unsigned short get_Tabula_Map_Size() { return sizeof tabula_map / sizeof *tabula_map; }
 	
-unsigned short get_Tabula_Tempo() { return tempo; }
+unsigned short get_Tabula_Tempo() { return TEMPO; }

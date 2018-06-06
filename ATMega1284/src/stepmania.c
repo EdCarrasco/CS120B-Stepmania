@@ -58,7 +58,7 @@ unsigned long int findGCD(unsigned long a, unsigned long b)
 void init_Tasks()
 {
     unsigned long controller_period = 10;
-    unsigned long LCD_period = 200;
+    unsigned long LCD_period = 100;
     unsigned long music_period = 5;
 	unsigned long usart_period = findGCD(controller_period, music_period);
     
@@ -101,15 +101,24 @@ int main(void)
 	DDRB = 0xFF; PORTB = 0x00;
     DDRC = 0xFF; PORTC = 0x00;
     DDRD = 0xFF; PORTD = 0x00;
+	
+	if(get_Max_Combo_Prom() >= 255)
+	{
+		set_Max_Combo_Prom(0);
+	}
+	if(get_Max_Hits_Prom() >= 255)
+	{
+		set_Max_Hits_Prom(0);
+	}
+	set_Max_Combo(get_Max_Combo_Prom());
+	set_Max_Hits(get_Max_Hits_Prom());
     
     initUSART();
     LCD_init();
     init_Tasks();
-    
+
     TimerSet(get_ProgramPeriod());
     TimerOn();
-	
-	set_Max_Combo(get_Max_Combo_Prom());
     
     set_sleep_mode(1);
     while(1) { sleep_enable(); }

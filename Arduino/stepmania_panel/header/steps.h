@@ -15,6 +15,8 @@ protected:
     
     unsigned char elapsed_time;
     
+    bool hitFlag;
+    
 public:
     Step(unsigned char Y, unsigned char COLOR[3]);
     Step(unsigned char Y, unsigned char R, unsigned char G, unsigned char B);
@@ -23,6 +25,7 @@ public:
     unsigned char getX(void);
 };
 
+/*
 class StepHold : public Step
 {
 public:
@@ -52,6 +55,7 @@ public:
     StepTail(unsigned char Y) : StepHold(Y,0,10,80) {}
     void Update(void);
 };
+*/
 
 void make_Steps(unsigned char data, unsigned char beat, LinkedList<Step*> &list);
 

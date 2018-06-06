@@ -1,17 +1,18 @@
 #include "../header/steps.h"
 #include "../header/LinkedList.h"
 #include "../header/matrix.h"
+#include "../header/uart.h"
 
 #include "../header/globals.h"
 
 #define UPDATE_TIME 30
 
 #define LEFT_Y 13
-#define DOWN_Y 9
-#define UP_Y 4
-#define RIGHT_Y 0
+#define DOWN_B 9
+#define UP_X 4
+#define RIGHT_A 0
 
-StepHold* last_step[4] = {NULL, NULL, NULL, NULL};
+//StepHold* last_step[4] = {NULL, NULL, NULL, NULL};
 
 Step::Step(unsigned char Y, unsigned char COLOR[3])
 {
@@ -22,6 +23,7 @@ Step::Step(unsigned char Y, unsigned char COLOR[3])
     b = COLOR[2];
     
     elapsed_time = UPDATE_TIME;
+    hitFlag = false;
 }
 
 Step::Step(unsigned char Y, unsigned char R, unsigned char G, unsigned char B)
@@ -52,11 +54,43 @@ Step::~Step()
                 break;
         }
     }
+    if(hitFlag)
+    {
+        UART_Write(0x02);
+    }
+    else
+    {
+        UART_Write(0x01);
+    }
 }
 
 void Step::Update(void)
 {
-    elapsed_time += 5;
+    if(x >= 23)
+    {
+        unsigned char button_index;
+        switch(y)
+        {
+            case LEFT_Y:
+                button_index = 0;
+                break;
+            case DOWN_B:
+                button_index = 1;
+                break;
+            case UP_X:
+                button_index = 2;
+                break;
+            case RIGHT_A:
+                button_index = 3;
+                break;
+        }
+        if(get_ButtonState(button_index) == 1)
+        {
+            hitFlag = true;
+        }
+    }
+    
+    elapsed_time += 5;//get_ListPeriod();
     
     if(elapsed_time >= UPDATE_TIME)
     {
@@ -88,6 +122,7 @@ void Step::Update(void)
 
 unsigned char Step::getX(void) { return x; }
 
+/*
 void StepHead::Update(void)
 {
     elapsed_time += 5;
@@ -154,13 +189,14 @@ void StepTail::Update(void)
         x++;
     } 
 }
+*/
 
 void make_Steps(unsigned char data, unsigned char beat, LinkedList<Step*> &list)
 {
     
     //Left, Down, Up, Right
     unsigned char datas[4] = { ((data>>6) & 0x03), ((data>>4) & 0x03), ((data>>2) & 0x03), (data & 0x03) };
-    unsigned char ys[4] = {LEFT_Y, DOWN_Y, UP_Y, RIGHT_Y};
+    unsigned char ys[4] = {LEFT_Y, DOWN_B, UP_X, RIGHT_A};
     unsigned char colors[4][3] = {
             {100,0,0},
             {100,70,0},

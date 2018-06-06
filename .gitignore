@@ -56,3 +56,4 @@ dkms.conf
 *.srec
 *.lss
 *.eep
+*.xml

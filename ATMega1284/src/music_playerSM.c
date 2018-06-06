@@ -48,7 +48,7 @@ int Tick_Music(int state)
             break;
 		case music_Wait:
 			elapsed_time[0] += get_MusicPeriod();
-			if(elapsed_time[0] >= 570)
+			if(elapsed_time[0] >= 695)
 			{
 				elapsed_time[0] = 0;
 				state = music_Update;

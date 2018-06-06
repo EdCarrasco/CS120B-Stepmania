@@ -38,6 +38,21 @@ int Tick_Controller(int state)
 			{
 				set_PlayEnable(1);
 			}
+			
+			if( (data & 0x0400) && (data & 0x0800) ) // L and R
+			{
+				if(get_Max_Combo_Prom() > 0)
+				{
+					set_Max_Combo(0);
+					set_Max_Combo_Prom(0);
+				}
+
+				if(get_Max_Hits_Prom() > 0)
+				{
+					set_Max_Hits(0);
+					set_Max_Hits_Prom(0);
+				}
+			}
             break;
     }
     

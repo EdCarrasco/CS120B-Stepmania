@@ -22,7 +22,7 @@ int Tick_Step(int state)
         case step_Off:
             if(get_PlayEnable())
             {
-                tempo = 100; //get_Tempo();
+                tempo = 92; //get_Tempo();
                 tempo_time = tempo;
                 state = step_Update;
             }
@@ -59,13 +59,8 @@ int Tick_Step(int state)
             break;
         case step_Update:
             if(tempo_time >= tempo)
-            {
-                if(tempo == 98) { tempo = 103; }
-                else if(tempo == 103) { tempo = 99; }
-                else if(tempo == 99) { tempo = 102; }
-                else if(tempo == 102) { tempo = 100; }
-                else if(tempo == 100) { tempo = 98; }
-                
+            {   
+                tempo = (tempo == 92) ? 93 : 92;
                 tempo_time = 0;
                 make_Steps(mapList.remove(0),beat,stepList);
                 beat++;
