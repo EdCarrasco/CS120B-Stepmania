@@ -950,8 +950,6 @@ unsigned char get_Tabula_Size(unsigned char track)
 
 const unsigned char* get_Tabula_Map() { return tabula_map; }
 
-//unsigned char get_Tabula_Map(unsigned char index) { return tabula_map[index]; }
-
 unsigned short get_Tabula_Map_Size() { return sizeof tabula_map / sizeof *tabula_map; }
 	
 unsigned short get_Tabula_Tempo() { return TEMPO; }
