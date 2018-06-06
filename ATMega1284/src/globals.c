@@ -53,7 +53,7 @@ unsigned char get_Hits() { return hits; }
 
 unsigned char max_hits = 0;
 void set_Max_Hits_Prom(unsigned char score) { EEPROM_Write(0x01,score); }
-unsigned char get_Max_Hits_Prom() { return EEPROM_Read(&0x01); }
+unsigned char get_Max_Hits_Prom() { return EEPROM_Read(0x01); }
 void set_Max_Hits(unsigned char score) { max_hits = score; }
 unsigned char get_Max_Hits() { return max_hits; }
 
