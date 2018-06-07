@@ -44,11 +44,12 @@ int Tick_USART(int state)
 				}
 				USART_Send(0x03,0x01);
 				USART_Send(0x04,get_Tempo());
-
+				
 				combo = 0;
 				set_Combo(combo);
+				max_combo = 0;
 				hits = 0;
-				set_Hits(hits);
+				set_Hits(0);
 				state = usart_Update;
 			}
 			else
@@ -90,6 +91,7 @@ int Tick_USART(int state)
 		case usart_Off:
 			combo = 0;
 			max_combo = 0;
+			hits = 0;
 			send_Controller();
 			break;
 		case usart_Update:

@@ -47,13 +47,12 @@ int Tick_Music(int state)
             }
             break;
 		case music_Wait:
-			elapsed_time[0] += get_MusicPeriod();
 			if(get_PlayEnable() && elapsed_time[0] >= 750)
 			{
 				elapsed_time[0] = 0;
 				state = music_Update;
 			}
-			else if (get_PlayEnable() && elapsed_time[0] < 780)
+			else if (get_PlayEnable() && elapsed_time[0] < 750)
 			{
 				state = music_Wait;
 			}
@@ -91,6 +90,9 @@ int Tick_Music(int state)
                 set_PWM(i,0);
             }
             break;
+		case music_Wait:
+			elapsed_time[0] += get_MusicPeriod();
+			break;
         case music_Update:
 			for(unsigned char i = 0; i < music_tracks; i++)
 			{

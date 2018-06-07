@@ -1,9 +1,18 @@
-/*
- * stepmania.c
+/*    Name & Email: Jonathan Oaks, joaks001@ucr.edu
+ *    Lab Section: 25
+ *    Assignment: Final Project
+ *    Exercise Description:
  *
- * Created: 2018-05-25 15:25:30
- *  Author: JonathanOaks
- */ 
+ *	  Stepmania game.
+ *	  Gather input from the SNES controller
+ *	  Play music on Piezo Buzzers
+ *	  Display title and scores on LCD Screen
+ *	  Display game on 16x32 RGB LED Matrix
+ *	  Communicate with matrix using USART
+ *
+ *    I acknowledge all content contained herein, excluding template or example
+ *    code, is my own original work.
+ */
 
 #include <avr/io.h>
 #include <avr/sleep.h>
