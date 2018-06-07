@@ -61,6 +61,7 @@ int Tick_Step(int state)
             if(tempo_time >= tempo)
             {   
                 tempo = (tempo == 92) ? 93 : 92;
+                
                 tempo_time = 0;
                 make_Steps(mapList.remove(0),beat,stepList);
                 beat++;

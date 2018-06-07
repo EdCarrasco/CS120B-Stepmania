@@ -43,6 +43,7 @@ int Tick_Input(int state)
                         break;
                     case 0x04: // Tempo
                         set_Tempo(rx[1]);
+                        break;
                     default: break;
                 }
             }
